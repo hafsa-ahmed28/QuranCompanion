@@ -9,9 +9,9 @@ from rest_framework.decorators import api_view        # Marks a function as an A
 from rest_framework.response import Response           # Lets us send JSON responses back to the frontend
 from rest_framework import status                      # Named HTTP status codes (200, 400, etc.) for readability
 from rest_framework.authtoken.models import Token      # The login "wristband" token system
-from api.models import Surah
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from api.models import Surah, ListeningProgress
 
 # SIGNUP: creates a new account. Only accepts POST because the user is SENDING us data.
 @api_view(['POST'])
@@ -99,3 +99,60 @@ def surah_list(request):
         })
 
     return Response(surah_data, status=status.HTTP_200_OK)
+
+
+# MARK LISTENED: saves that the logged-in user has listened to a specific surah.
+@api_view(['POST'])
+def mark_listened(request):
+    auth = TokenAuthentication()
+    try:
+        user, token = auth.authenticate(request)
+    except:
+        return Response(
+            {'error': 'You must be logged in.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    surah_number = request.data.get('surah_number')
+
+    try:
+        surah = Surah.objects.get(number=surah_number)
+    except Surah.DoesNotExist:
+        return Response(
+            {'error': 'Surah not found.'},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    progress, created = ListeningProgress.objects.get_or_create(user=user, surah=surah)
+
+    if not created:
+        return Response(
+            {'message': 'Already marked as listened.'},
+            status=status.HTTP_200_OK
+        )
+
+    return Response(
+        {'message': f'Marked {surah.name_english} as listened.'},
+        status=status.HTTP_201_CREATED
+    )
+
+
+# LISTENING PROGRESS: returns which surahs the logged-in user has listened to.
+@api_view(['GET'])
+def listening_progress(request):
+    auth = TokenAuthentication()
+    try:
+        user, token = auth.authenticate(request)
+    except:
+        return Response(
+            {'error': 'You must be logged in.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    listened = ListeningProgress.objects.filter(user=user).values_list('surah__number', flat=True)
+
+    return Response(
+        {'listened': list(listened)},
+        status=status.HTTP_200_OK
+    )
+

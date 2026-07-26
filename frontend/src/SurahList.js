@@ -1,48 +1,96 @@
-// SurahList.js - Displays all 114 surahs after the user logs in.
-// Fetches the list from the backend using the auth token to prove
-// the user is logged in.
+// SurahList.js — Shows all 114 surahs with a button to mark each as listened.
+// Fetches the surah list and the user's listening progress, then combines them
+// so each surah shows whether it's been listened to or not.
 
 import { useState, useEffect } from 'react';
 
 function SurahList(props) {
   const [surahs, setSurahs] = useState([]);
+  const [listened, setListened] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const fetchProgress = async () => {
+    const response = await fetch('http://127.0.0.1:8000/api/listening-progress/', {
+      headers: { 'Authorization': 'Token ' + props.token },
+    });
+    const data = await response.json();
+    if (response.ok) {
+      setListened(data.listened);
+    }
+  };
+
   useEffect(() => {
-    const fetchSurahs = async () => {
-      const response = await fetch('http://127.0.0.1:8000/api/surahs/', {
-        headers: {
-          'Authorization': 'Token ' + props.token,
-        },
+    const fetchData = async () => {
+      // Fetch surahs
+      const surahResponse = await fetch('http://127.0.0.1:8000/api/surahs/', {
+        headers: { 'Authorization': 'Token ' + props.token },
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setSurahs(data);
+      const surahData = await surahResponse.json();
+      if (surahResponse.ok) {
+        setSurahs(surahData);
       }
 
+      // Fetch listening progress
+      await fetchProgress();
       setLoading(false);
     };
 
-    fetchSurahs();
+    fetchData();
   }, [props.token]);
+
+  const handleMarkListened = async (surahNumber) => {
+    const response = await fetch('http://127.0.0.1:8000/api/mark-listened/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + props.token,
+      },
+      body: JSON.stringify({ surah_number: surahNumber }),
+    });
+
+    if (response.ok) {
+      await fetchProgress();
+    }
+  };
 
   if (loading) {
     return <p>Loading surahs...</p>;
   }
 
+  const listenedCount = listened.length;
+
   return (
     <div>
-      <h2>All Surahs</h2>
-      <p>{surahs.length} surahs loaded</p>
-      {surahs.map((surah) => (
-        <div key={surah.number} style={{ padding: '8px 0', borderBottom: '1px solid #eee' }}>
-          <strong>{surah.number}. {surah.name_english}</strong> — {surah.name_arabic}
-          <br />
-          <small>{surah.english_translation} · {surah.number_of_ayahs} ayahs · {surah.revelation_type}</small>
-        </div>
-      ))}
+      <h2>Listening Progress</h2>
+      <p><strong>{listenedCount} / 114</strong> surahs listened</p>
+      <hr />
+      {surahs.map((surah) => {
+        const isListened = listened.includes(surah.number);
+        return (
+          <div key={surah.number} style={{
+            padding: '10px 0',
+            borderBottom: '1px solid #eee',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+            <div>
+              <strong>{surah.number}. {surah.name_english}</strong> — {surah.name_arabic}
+              <br />
+              <small>{surah.english_translation} · {surah.number_of_ayahs} ayahs</small>
+            </div>
+            <div>
+              {isListened ? (
+                <span style={{ color: 'green' }}>✓ Listened</span>
+              ) : (
+                <button onClick={() => handleMarkListened(surah.number)}>
+                  Mark as Listened
+                </button>
+              )}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

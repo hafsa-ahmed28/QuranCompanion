@@ -15,3 +15,15 @@ class Surah(models.Model):
 
     def __str__(self):
         return f"{self.number}. {self.name_english} ({self.name_arabic})"
+    
+
+class ListeningProgress(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    surah = models.ForeignKey(Surah, on_delete=models.CASCADE)
+    listened_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'surah')
+
+    def __str__(self):
+        return f"{self.user.username} listened to {self.surah.name_english}"

@@ -9,4 +9,6 @@ urlpatterns = [
     path('signup/', views.signup), # POST /api/signup/  ->  creates an account
     path ('login/', views.login), # POST /api/login/ ->  logs a user in
     path('surahs/', views.surah_list), # GET /api/surahs/ -> returns all 114 surahs
+    path('mark-listened/', views.mark_listened), # POST -> mark a surah as listened
+    path('listening-progress/', views.listening_progress),  # GET -> get user's listened surahs
 ]
