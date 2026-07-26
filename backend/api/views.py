@@ -9,7 +9,9 @@ from rest_framework.decorators import api_view        # Marks a function as an A
 from rest_framework.response import Response           # Lets us send JSON responses back to the frontend
 from rest_framework import status                      # Named HTTP status codes (200, 400, etc.) for readability
 from rest_framework.authtoken.models import Token      # The login "wristband" token system
-
+from api.models import Surah
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 # SIGNUP: creates a new account. Only accepts POST because the user is SENDING us data.
 @api_view(['POST'])
@@ -68,3 +70,32 @@ def login(request):
         {'token': token.key, 'username': user.username},
         status=status.HTTP_200_OK
     )
+
+
+# SURAH LIST: returns all 114 surahs. Requires the user to be logged in.
+@api_view(['GET'])
+def surah_list(request):
+    # Check the user sent a valid token
+    auth = TokenAuthentication()
+    try:
+        user, token = auth.authenticate(request)
+    except:
+        return Response(
+            {'error': 'You must be logged in.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    surahs = Surah.objects.all().order_by('number')
+
+    surah_data = []
+    for surah in surahs:
+        surah_data.append({
+            'number': surah.number,
+            'name_arabic': surah.name_arabic,
+            'name_english': surah.name_english,
+            'english_translation': surah.english_translation,
+            'number_of_ayahs': surah.number_of_ayahs,
+            'revelation_type': surah.revelation_type,
+        })
+
+    return Response(surah_data, status=status.HTTP_200_OK)

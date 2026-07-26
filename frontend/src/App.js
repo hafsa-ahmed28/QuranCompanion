@@ -1,10 +1,10 @@
-// App.js - The main entry point. Manages whether the user is logged in or not.
-// If logged in, shows a welcome message. If not, shows signup and login forms.
-// The token is stored in state so future API calls can use it.
+// App.js - The main entry point. Shows signup/login if not logged in,
+// shows the surah list if logged in.
 
 import { useState } from 'react';
-import Signup from './signup';
-import Login from './login';
+import Signup from './Signup';
+import Login from './Login';
+import SurahList from './SurahList';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -26,6 +26,8 @@ function App() {
         <h1>Quran Companion</h1>
         <p>Welcome, {username}!</p>
         <button onClick={handleLogout}>Log Out</button>
+        <hr />
+        <SurahList token={token} />
       </div>
     );
   }
