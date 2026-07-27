@@ -1,8 +1,7 @@
-// SurahList.js — Shows all 114 surahs with a button to mark each as listened.
-// Fetches the surah list and the user's listening progress, then combines them
-// so each surah shows whether it's been listened to or not.
+// SurahList.js - Shows all 114 surahs with listening tracking and goal setting.
 
 import { useState, useEffect } from 'react';
+import Goal from './Goal';
 
 function SurahList(props) {
   const [surahs, setSurahs] = useState([]);
@@ -21,7 +20,6 @@ function SurahList(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch surahs
       const surahResponse = await fetch('http://127.0.0.1:8000/api/surahs/', {
         headers: { 'Authorization': 'Token ' + props.token },
       });
@@ -30,7 +28,6 @@ function SurahList(props) {
         setSurahs(surahData);
       }
 
-      // Fetch listening progress
       await fetchProgress();
       setLoading(false);
     };
@@ -57,12 +54,9 @@ function SurahList(props) {
     return <p>Loading surahs...</p>;
   }
 
-  const listenedCount = listened.length;
-
   return (
     <div>
-      <h2>Listening Progress</h2>
-      <p><strong>{listenedCount} / 114</strong> surahs listened</p>
+      <Goal token={props.token} listenedCount={listened.length} />
       <hr />
       {surahs.map((surah) => {
         const isListened = listened.includes(surah.number);

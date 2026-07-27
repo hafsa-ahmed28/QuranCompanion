@@ -12,6 +12,8 @@ from rest_framework.authtoken.models import Token      # The login "wristband" t
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from api.models import Surah, ListeningProgress
+from api.models import Surah, ListeningProgress, ListeningGoal
+from datetime import date
 
 # SIGNUP: creates a new account. Only accepts POST because the user is SENDING us data.
 @api_view(['POST'])
@@ -156,3 +158,59 @@ def listening_progress(request):
         status=status.HTTP_200_OK
     )
 
+# SET GOAL: lets the user set a target date to finish listening to the whole Qur'an.
+@api_view(['POST'])
+def set_goal(request):
+    auth = TokenAuthentication()
+    try:
+        user, token = auth.authenticate(request)
+    except:
+        return Response(
+            {'error': 'You must be logged in.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    target_date = request.data.get('target_date')
+
+    if not target_date:
+        return Response(
+            {'error': 'Please provide a target date.'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Update existing goal or create a new one
+    goal, created = ListeningGoal.objects.update_or_create(
+        user=user,
+        defaults={'target_date': target_date},
+    )
+
+    return Response(
+        {'message': f'Goal set: finish by {goal.target_date}', 'target_date': str(goal.target_date)},
+        status=status.HTTP_201_CREATED
+    )
+
+
+# GET GOAL: returns the user's current listening goal.
+@api_view(['GET'])
+def get_goal(request):
+    auth = TokenAuthentication()
+    try:
+        user, token = auth.authenticate(request)
+    except:
+        return Response(
+            {'error': 'You must be logged in.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    try:
+        goal = ListeningGoal.objects.get(user=user)
+        days_left = (goal.target_date - date.today()).days
+        return Response({
+            'target_date': str(goal.target_date),
+            'days_left': days_left,
+        }, status=status.HTTP_200_OK)
+    except ListeningGoal.DoesNotExist:
+        return Response(
+            {'target_date': None, 'days_left': None},
+            status=status.HTTP_200_OK
+        )

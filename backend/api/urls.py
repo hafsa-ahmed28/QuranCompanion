@@ -11,4 +11,6 @@ urlpatterns = [
     path('surahs/', views.surah_list), # GET /api/surahs/ -> returns all 114 surahs
     path('mark-listened/', views.mark_listened), # POST -> mark a surah as listened
     path('listening-progress/', views.listening_progress),  # GET -> get user's listened surahs
+    path('set-goal/', views.set_goal),  # POST -> set a listening goal
+    path('get-goal/', views.get_goal),   # GET -> get the user's goal
 ]

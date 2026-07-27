@@ -27,3 +27,12 @@ class ListeningProgress(models.Model):
 
     def __str__(self):
         return f"{self.user.username} listened to {self.surah.name_english}"
+    
+
+class ListeningGoal(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    target_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} — finish by {self.target_date}"
