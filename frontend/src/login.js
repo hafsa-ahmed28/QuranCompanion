@@ -1,6 +1,4 @@
-// Login.js — The login form component. Lets an existing user log in by sending
-// their username and password to the backend's /api/login/ endpoint.
-// On success, it receives their login token back.
+// Login.js - The login form component.
 
 import { useState } from 'react';
 
@@ -28,28 +26,28 @@ function Login(props) {
   };
 
   return (
-    <div>
+    <div className="auth-card">
       <h2>Log In</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username: </label>
+        <div className="form-group">
+          <label>Username</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div>
-          <label>Password: </label>
+        <div className="form-group">
+          <label>Password</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Log In</button>
+        <button type="submit" className="btn-primary">Log In</button>
       </form>
-      <p>{message}</p>
+      {message && <p className="error-message">{message}</p>}
     </div>
   );
 }

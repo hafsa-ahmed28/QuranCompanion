@@ -1,5 +1,4 @@
-// Goal.js - Lets the user set a target date to finish listening to the
-// whole Qur'an, and shows their progress against that goal.
+// Goal.js - Goal setting and progress display.
 
 import { useState, useEffect } from 'react';
 
@@ -41,31 +40,32 @@ function Goal(props) {
   };
 
   return (
-    <div style={{ padding: '16px 0' }}>
+    <div className="goal-section">
       {savedDate ? (
         <div>
-          <p>
+          <p className="goal-progress">
             <strong>{props.listenedCount} / 114</strong> surahs listened
-            — <strong>{daysLeft}</strong> {daysLeft === 1 ? 'day' : 'days'} left to reach your goal
+            — <strong>{daysLeft}</strong> {daysLeft === 1 ? 'day' : 'days'} left
           </p>
-          <small>Goal: finish by {savedDate}</small>
-          <br />
-          <button onClick={() => setSavedDate(null)} style={{ marginTop: '8px' }}>
+          <p className="goal-detail">Goal: finish by {savedDate}</p>
+          <button className="btn-small" onClick={() => setSavedDate(null)}>
             Change Goal
           </button>
         </div>
       ) : (
         <div>
-          <p><strong>{props.listenedCount} / 114</strong> surahs listened</p>
-          <label>Set a goal — finish listening by: </label>
-          <input
-            type="date"
-            value={targetDate}
-            onChange={(e) => setTargetDate(e.target.value)}
-          />
-          <button onClick={handleSetGoal} style={{ marginLeft: '8px' }}>
-            Set Goal
-          </button>
+          <p className="goal-progress">
+            <strong>{props.listenedCount} / 114</strong> surahs listened
+          </p>
+          <div className="goal-form">
+            <label>Finish listening by:</label>
+            <input
+              type="date"
+              value={targetDate}
+              onChange={(e) => setTargetDate(e.target.value)}
+            />
+            <button onClick={handleSetGoal}>Set Goal</button>
+          </div>
         </div>
       )}
     </div>
