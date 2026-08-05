@@ -14,6 +14,7 @@ from rest_framework.authentication import TokenAuthentication
 from api.models import Surah, ListeningProgress
 from api.models import Surah, ListeningProgress, ListeningGoal
 from datetime import date
+from api.models import Surah, ListeningProgress, ListeningGoal, UserProfile
 
 # SIGNUP: creates a new account. Only accepts POST because the user is SENDING us data.
 @api_view(['POST'])
@@ -214,3 +215,65 @@ def get_goal(request):
             {'target_date': None, 'days_left': None},
             status=status.HTTP_200_OK
         )
+    
+
+# GET PROFILE: returns the logged-in user's profile info.
+@api_view(['GET'])
+def get_profile(request):
+    auth = TokenAuthentication()
+    try:
+        user, token = auth.authenticate(request)
+    except:
+        return Response(
+            {'error': 'You must be logged in.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    profile, created = UserProfile.objects.get_or_create(user=user)
+
+    return Response({
+        'username': user.username,
+        'display_name': profile.display_name,
+        'bio': profile.bio,
+        'avatar_style': profile.avatar_icon,
+        'avatar_color': profile.avatar_color,
+    }, status=status.HTTP_200_OK)
+
+
+# UPDATE PROFILE: lets the user update their profile info.
+@api_view(['POST'])
+def update_profile(request):
+    auth = TokenAuthentication()
+    try:
+        user, token = auth.authenticate(request)
+    except:
+        return Response(
+            {'error': 'You must be logged in.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    profile, created = UserProfile.objects.get_or_create(user=user)
+
+    display_name = request.data.get('display_name')
+    bio = request.data.get('bio')
+    avatar_style = request.data.get('avatar_style')
+    avatar_color = request.data.get('avatar_color')
+
+    if display_name is not None:
+        profile.display_name = display_name
+    if bio is not None:
+        profile.bio = bio
+    if avatar_style is not None:
+        profile.avatar_icon = avatar_style
+    if avatar_color is not None:
+        profile.avatar_color = avatar_color
+
+    profile.save()
+
+    return Response({
+        'message': 'Profile updated.',
+        'display_name': profile.display_name,
+        'bio': profile.bio,
+        'avatar_style': profile.avatar_icon,
+        'avatar_color': profile.avatar_color,
+    }, status=status.HTTP_200_OK)

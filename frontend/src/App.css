@@ -416,3 +416,282 @@ body {
   padding: 32px;
   font-size: 14px;
 }
+
+/* Profile */
+.profile-wrapper {
+  position: relative;
+}
+
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #D4A957;
+  color: #1A3C40;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.08);
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 280px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #E8E0D4;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  z-index: 100;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.profile-avatar-large {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #D4A957;
+  color: #1A3C40;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1A3C40;
+}
+
+.profile-username {
+  font-size: 12px;
+  color: #7A8B8E;
+}
+
+.profile-bio {
+  font-size: 13px;
+  color: #2C3E50;
+  padding: 8px 0;
+  border-top: 1px solid #E8E0D4;
+  line-height: 1.5;
+}
+
+.profile-saved {
+  font-size: 13px;
+  color: #D4A957;
+  margin-bottom: 8px;
+}
+
+.profile-edit {
+  border-top: 1px solid #E8E0D4;
+  padding-top: 12px;
+}
+
+.profile-edit textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #E8E0D4;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #FAF7F2;
+  color: #2C3E50;
+  font-family: inherit;
+  resize: none;
+}
+
+.profile-edit textarea:focus {
+  outline: none;
+  border-color: #1A3C40;
+}
+
+.profile-edit-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.profile-edit-buttons .btn-primary {
+  flex: 1;
+}
+
+.profile-menu {
+  border-top: 1px solid #E8E0D4;
+  padding-top: 8px;
+}
+
+.profile-menu-item {
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #2C3E50;
+  border-radius: 8px;
+}
+
+.profile-menu-item:hover {
+  background: #FAF7F2;
+}
+
+.profile-menu-item.logout {
+  color: #C0392B;
+}
+
+.profile-menu-item.logout:hover {
+  background: #FDF2F2;
+}
+
+/* Islamic avatar */
+.profile-avatar-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid #D4A957;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.profile-avatar-btn:hover {
+  transform: scale(1.08);
+}
+
+.profile-avatar-emoji {
+  font-size: 18px;
+}
+
+.profile-avatar-large-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+/* Avatar picker */
+.avatar-picker {
+  border-top: 1px solid #E8E0D4;
+  padding-top: 12px;
+}
+
+.avatar-picker-title {
+  font-size: 13px;
+  color: #7A8B8E;
+  margin-bottom: 8px;
+}
+
+.avatar-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.avatar-icon-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border: 2px solid #E8E0D4;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.avatar-icon-option:hover {
+  border-color: #1A3C40;
+}
+
+.avatar-icon-option.selected {
+  border-color: #D4A957;
+  background: #FDFBF7;
+}
+
+.avatar-icon-emoji {
+  font-size: 24px;
+}
+
+.avatar-icon-option small {
+  font-size: 10px;
+  color: #7A8B8E;
+}
+
+.avatar-color-grid {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.avatar-color-option {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.avatar-color-option:hover {
+  transform: scale(1.1);
+}
+
+.avatar-color-option.selected {
+  border-color: #D4A957;
+  box-shadow: 0 0 0 2px #FAF7F2, 0 0 0 4px #D4A957;
+}
+
+.avatar-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.avatar-preview-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.avatar-preview small {
+  font-size: 12px;
+  color: #7A8B8E;
+}

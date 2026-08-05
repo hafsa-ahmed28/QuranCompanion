@@ -13,4 +13,6 @@ urlpatterns = [
     path('listening-progress/', views.listening_progress),  # GET -> get user's listened surahs
     path('set-goal/', views.set_goal),  # POST -> set a listening goal
     path('get-goal/', views.get_goal),   # GET -> get the user's goal
+    path('profile/', views.get_profile),  # GET -> get user profile
+    path('profile/update/', views.update_profile), # POST -> update user profile
 ]

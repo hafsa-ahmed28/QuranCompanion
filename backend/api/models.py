@@ -36,3 +36,15 @@ class ListeningGoal(models.Model):
 
     def __str__(self):
         return f"{self.user.username} — finish by {self.target_date}"
+    
+
+class UserProfile(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    display_name = models.CharField(max_length=100, blank=True)
+    bio = models.TextField(max_length=300, blank=True)
+    avatar_icon = models.CharField(max_length=10, default='🌙')
+    avatar_color = models.CharField(max_length=7, default='#1A3C40')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s profile"

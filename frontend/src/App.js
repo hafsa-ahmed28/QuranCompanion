@@ -6,6 +6,7 @@ import './App.css';
 import Signup from './Signup';
 import Login from './Login';
 import SurahList from './SurahList';
+import Profile from './Profile';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -26,10 +27,7 @@ function App() {
       <div className="app">
         <div className="navbar">
           <h1>Quran Companion</h1>
-          <div className="navbar-right">
-            <span>{username}</span>
-            <button onClick={handleLogout}>Log Out</button>
-          </div>
+          <Profile token={token} username={username} onLogout={handleLogout} />
         </div>
         <SurahList token={token} />
       </div>
