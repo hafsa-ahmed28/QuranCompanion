@@ -1879,3 +1879,232 @@ h1, h2, h3 {
   border-color: var(--brass);
   color: var(--parchment);
 }
+
+/* ================= Tracker polish ================= */
+
+.section-eyebrow {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 11px;
+  color: var(--ink-muted);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+/* Goal — headline card */
+.goal-section {
+  padding: 32px 36px;
+  margin-bottom: 24px;
+}
+
+.goal-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.goal-stat-number {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 72px;
+  color: var(--accent);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.goal-stat-slash {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 36px;
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+.goal-stat-total {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 32px;
+  color: var(--ink-muted);
+}
+
+.goal-stat-label {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-soft);
+  margin-left: 12px;
+}
+
+.goal-details {
+  padding-top: 20px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.goal-target {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.goal-target em {
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.goal-date {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.goal-days {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.goal-days-number {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--brass);
+}
+
+.goal-days em {
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-left: 4px;
+}
+
+/* Surah list section */
+.surah-list-section {
+  margin-top: 8px;
+}
+
+.surah-list-header {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Refined surah card */
+.surah-card {
+  padding: 18px 12px;
+  border-bottom: 1px solid var(--border-soft);
+  transition: background 0.15s;
+}
+
+.surah-card:hover {
+  background: var(--parchment-soft);
+}
+
+.surah-card.listened {
+  opacity: 0.7;
+}
+
+.surah-number-badge {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--ink-soft);
+  font-weight: 500;
+  background: var(--parchment-soft);
+}
+
+.surah-card.listened .surah-number-badge {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--parchment);
+  font-style: normal;
+}
+
+.surah-info h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.surah-info .arabic-name {
+  font-size: 22px;
+  font-style: normal;
+  margin-left: 6px;
+}
+
+.surah-info small {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-style: normal;
+}
+
+.surah-info small em {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.surah-meta-dot {
+  color: var(--border);
+  margin: 0 2px;
+}
+
+.listened-badge {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: var(--brass);
+  font-size: 26px;
+  font-style: italic;
+}
+
+.btn-listen {
+  padding: 8px 18px;
+  background: transparent;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-listen:hover {
+  background: var(--ink);
+  color: var(--parchment);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .goal-section {
+    padding: 24px 22px;
+  }
+  .goal-stat-number {
+    font-size: 56px;
+  }
+  .section-title {
+    font-size: 24px;
+  }
+  .surah-info h3 {
+    font-size: 18px;
+  }
+}

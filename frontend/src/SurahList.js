@@ -1,5 +1,6 @@
-// SurahList.js — Shows all 114 surahs with listening tracking, goal setting,
-// and an optional reflection prompt after marking a surah as listened.
+// SurahList.js — The tracker page. Shows a large statement goal card, the
+// progress visualization, filter tabs, search, and the surah list styled
+// to match the illuminated-manuscript aesthetic of the journal.
 
 import { useState, useEffect } from 'react';
 import Goal from './Goal';
@@ -95,12 +96,9 @@ function SurahList(props) {
     setMutePrompts(true);
   };
 
-  if (loading) {
-    return <p>Loading surahs...</p>;
-  }
+  if (loading) return <p className="loading-line">Opening your companion...</p>;
 
   const listenedCount = listened.length;
-  const progressPercent = Math.round((listenedCount / 114) * 100);
 
   let filteredSurahs = surahs;
   if (filter === 'listened') {
@@ -121,108 +119,131 @@ function SurahList(props) {
   return (
     <div>
       <Goal token={props.token} listenedCount={listenedCount} />
-      <ProgressVisual surahs={surahs} listened={listened} />
 
+      {/* Reflection prompt — appears after marking listened */}
       {reflectPrompt && (
         <div className="reflect-prompt">
           <div className="reflect-prompt-header">
-            <span className="reflect-prompt-icon">✨</span>
+            <span className="reflect-prompt-icon">❦</span>
             <div>
               <p className="reflect-prompt-title">
-                You just listened to {reflectPrompt.name_english}!
+                You just heard {reflectPrompt.name_english}
               </p>
               <p className="reflect-prompt-subtitle">
-                Want to reflect on what you heard?
+                Would you like to reflect on what stayed with you?
               </p>
             </div>
           </div>
           <textarea
-            className="journal-textarea"
+            className="book-textarea"
             value={reflectText}
             onChange={(e) => setReflectText(e.target.value)}
-            placeholder="What moved you? What did you learn? How did it make you feel?"
+            placeholder="What moved you? What do you want to remember?"
             rows={4}
+            style={{ minHeight: '140px' }}
           />
           <div className="reflect-prompt-actions">
             <button
               className="btn-primary"
               onClick={handleSaveReflection}
               disabled={saving || !reflectText.trim()}
-              style={{ width: 'auto', padding: '10px 24px' }}
+              style={{ width: 'auto', padding: '10px 28px', marginTop: 0 }}
             >
-              {saving ? 'Saving...' : 'Save Reflection'}
+              {saving ? 'Saving...' : 'Save to Journal'}
             </button>
             <button className="btn-small" onClick={dismissPrompt}>
-              Skip for now
+              Not now
             </button>
             <button className="btn-mute" onClick={dismissAndMute}>
-              Don't ask again
+              Don't ask again this session
             </button>
           </div>
         </div>
       )}
 
-      <div className="filter-bar">
-        <button
-          className={`filter-tab ${filter === 'all' ? 'active' : ''}`}
-          onClick={() => setFilter('all')}
-        >
-          All ({surahs.length})
-        </button>
-        <button
-          className={`filter-tab ${filter === 'listened' ? 'active' : ''}`}
-          onClick={() => setFilter('listened')}
-        >
-          Listened ({listenedCount})
-        </button>
-        <button
-          className={`filter-tab ${filter === 'remaining' ? 'active' : ''}`}
-          onClick={() => setFilter('remaining')}
-        >
-          Remaining ({114 - listenedCount})
-        </button>
-      </div>
+      <ProgressVisual surahs={surahs} listened={listened} />
 
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search by name or number..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
+      {/* The list section — headed like a chapter */}
+      <div className="surah-list-section">
+        <div className="surah-list-header">
+          <div>
+            <p className="section-eyebrow">The Surahs</p>
+            <h2 className="section-title">
+              {filter === 'all' && 'All 114'}
+              {filter === 'listened' && 'Already Listened'}
+              {filter === 'remaining' && 'Yet to Come'}
+            </h2>
+          </div>
+        </div>
 
-      <div className="surah-list">
-        {filteredSurahs.length === 0 ? (
-          <p className="empty-state">No surahs match your search.</p>
-        ) : (
-          filteredSurahs.map((surah) => {
-            const isListened = listened.includes(surah.number);
-            return (
-              <div key={surah.number} className={`surah-card ${isListened ? 'listened' : ''}`}>
-                <div className="surah-number-badge">
-                  <span>{surah.number}</span>
+        <div className="filter-bar">
+          <button
+            className={`filter-tab ${filter === 'all' ? 'active' : ''}`}
+            onClick={() => setFilter('all')}
+          >
+            All · {surahs.length}
+          </button>
+          <button
+            className={`filter-tab ${filter === 'listened' ? 'active' : ''}`}
+            onClick={() => setFilter('listened')}
+          >
+            Listened · {listenedCount}
+          </button>
+          <button
+            className={`filter-tab ${filter === 'remaining' ? 'active' : ''}`}
+            onClick={() => setFilter('remaining')}
+          >
+            Remaining · {114 - listenedCount}
+          </button>
+        </div>
+
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search by name or number..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        <div className="surah-list">
+          {filteredSurahs.length === 0 ? (
+            <p className="empty-state">Nothing here yet.</p>
+          ) : (
+            filteredSurahs.map((surah) => {
+              const isListened = listened.includes(surah.number);
+              return (
+                <div key={surah.number} className={`surah-card ${isListened ? 'listened' : ''}`}>
+                  <div className="surah-number-badge">
+                    <span>{surah.number}</span>
+                  </div>
+                  <div className="surah-info">
+                    <h3>
+                      {surah.name_english}
+                      <span className="arabic-name"> {surah.name_arabic}</span>
+                    </h3>
+                    <small>
+                      <em>{surah.english_translation}</em>
+                      <span className="surah-meta-dot"> · </span>
+                      {surah.number_of_ayahs} ayahs
+                      <span className="surah-meta-dot"> · </span>
+                      {surah.revelation_type}
+                    </small>
+                  </div>
+                  <div>
+                    {isListened ? (
+                      <span className="listened-badge" title="You have listened to this surah">✓</span>
+                    ) : (
+                      <button className="btn-listen" onClick={() => handleMarkListened(surah)}>
+                        Mark Listened
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <div className="surah-info">
-                  <h3>
-                    {surah.name_english}
-                    <span className="arabic-name"> {surah.name_arabic}</span>
-                  </h3>
-                  <small>{surah.english_translation} · {surah.number_of_ayahs} ayahs · {surah.revelation_type}</small>
-                </div>
-                <div>
-                  {isListened ? (
-                    <span className="listened-badge">✓</span>
-                  ) : (
-                    <button className="btn-listen" onClick={() => handleMarkListened(surah)}>
-                      Listen
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })
-        )}
+              );
+            })
+          )}
+        </div>
       </div>
     </div>
   );

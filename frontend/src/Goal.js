@@ -1,4 +1,6 @@
-// Goal.js - Goal setting and progress display.
+// Goal.js — The tracker's headline card. Shows the user's progress as a
+// large statement, with the goal target date underneath. Displays inline
+// form to set or change the goal.
 
 import { useState, useEffect } from 'react';
 
@@ -39,26 +41,43 @@ function Goal(props) {
     }
   };
 
+  const formatGoalDate = (dateString) => {
+    const date = new Date(dateString + 'T00:00:00');
+    return date.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+
   return (
     <div className="goal-section">
+      <p className="section-eyebrow">Your Progress</p>
+      <div className="goal-stat">
+        <span className="goal-stat-number">{props.listenedCount}</span>
+        <span className="goal-stat-slash">/</span>
+        <span className="goal-stat-total">114</span>
+        <span className="goal-stat-label">surahs listened</span>
+      </div>
+
       {savedDate ? (
-        <div>
-          <p className="goal-progress">
-            <strong>{props.listenedCount} / 114</strong> surahs listened
-            — <strong>{daysLeft}</strong> {daysLeft === 1 ? 'day' : 'days'} left
+        <div className="goal-details">
+          <p className="goal-target">
+            <em>Aiming to finish by</em> <span className="goal-date">{formatGoalDate(savedDate)}</span>
           </p>
-          <p className="goal-detail">Goal: finish by {savedDate}</p>
+          <p className="goal-days">
+            <span className="goal-days-number">{daysLeft}</span>
+            <em> {daysLeft === 1 ? 'day' : 'days'} remaining</em>
+          </p>
           <button className="btn-small" onClick={() => setSavedDate(null)}>
-            Change Goal
+            Change goal
           </button>
         </div>
       ) : (
-        <div>
-          <p className="goal-progress">
-            <strong>{props.listenedCount} / 114</strong> surahs listened
-          </p>
+        <div className="goal-details">
+          <p className="goal-target"><em>Set a goal to guide your journey</em></p>
           <div className="goal-form">
-            <label>Finish listening by:</label>
+            <label>Finish by</label>
             <input
               type="date"
               value={targetDate}
