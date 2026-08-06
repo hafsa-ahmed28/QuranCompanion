@@ -1,16 +1,18 @@
-// App.js - The main entry point. Shows auth forms or the main app depending
-// on whether the user is logged in.
+// App.js — The main entry point. Shows auth forms or the main app.
+// Logged-in users can switch between the tracker and the journal.
 
 import { useState } from 'react';
 import './App.css';
 import Signup from './Signup';
 import Login from './Login';
 import SurahList from './SurahList';
+import Journal from './Journal';
 import Profile from './Profile';
 
 function App() {
   const [token, setToken] = useState(null);
   const [username, setUsername] = useState('');
+  const [page, setPage] = useState('tracker');
 
   const handleAuth = (newToken, newUsername) => {
     setToken(newToken);
@@ -20,6 +22,7 @@ function App() {
   const handleLogout = () => {
     setToken(null);
     setUsername('');
+    setPage('tracker');
   };
 
   if (token) {
@@ -27,9 +30,27 @@ function App() {
       <div className="app">
         <div className="navbar">
           <h1>Quran Companion</h1>
+          <div className="nav-tabs">
+            <button
+              className={`nav-tab ${page === 'tracker' ? 'active' : ''}`}
+              onClick={() => setPage('tracker')}
+            >
+              Tracker
+            </button>
+            <button
+              className={`nav-tab ${page === 'journal' ? 'active' : ''}`}
+              onClick={() => setPage('journal')}
+            >
+              Journal
+            </button>
+          </div>
           <Profile token={token} username={username} onLogout={handleLogout} />
         </div>
-        <SurahList token={token} />
+        {page === 'tracker' ? (
+          <SurahList token={token} />
+        ) : (
+          <Journal token={token} />
+        )}
       </div>
     );
   }

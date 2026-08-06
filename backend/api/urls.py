@@ -6,13 +6,16 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('signup/', views.signup), # POST /api/signup/  ->  creates an account
-    path ('login/', views.login), # POST /api/login/ ->  logs a user in
-    path('surahs/', views.surah_list), # GET /api/surahs/ -> returns all 114 surahs
-    path('mark-listened/', views.mark_listened), # POST -> mark a surah as listened
-    path('listening-progress/', views.listening_progress),  # GET -> get user's listened surahs
-    path('set-goal/', views.set_goal),  # POST -> set a listening goal
-    path('get-goal/', views.get_goal),   # GET -> get the user's goal
-    path('profile/', views.get_profile),  # GET -> get user profile
-    path('profile/update/', views.update_profile), # POST -> update user profile
+    path('signup/', views.signup),
+    path('login/', views.login),
+    path('surahs/', views.surah_list),
+    path('mark-listened/', views.mark_listened),
+    path('listening-progress/', views.listening_progress),
+    path('set-goal/', views.set_goal),
+    path('get-goal/', views.get_goal),
+    path('profile/', views.get_profile),
+    path('profile/update/', views.update_profile),
+    path('reflections/', views.list_reflections),              # GET — all user's reflections
+    path('reflections/create/', views.create_reflection),      # POST — new reflection
+    path('reflections/<int:reflection_id>/delete/', views.delete_reflection),  # DELETE — remove one
 ]

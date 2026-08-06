@@ -48,3 +48,16 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s profile"
+
+class Reflection(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    surah = models.ForeignKey(Surah, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.user.username} — reflection on {self.surah.name_english}"

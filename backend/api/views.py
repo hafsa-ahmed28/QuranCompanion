@@ -14,7 +14,7 @@ from rest_framework.authentication import TokenAuthentication
 from api.models import Surah, ListeningProgress
 from api.models import Surah, ListeningProgress, ListeningGoal
 from datetime import date
-from api.models import Surah, ListeningProgress, ListeningGoal, UserProfile
+from api.models import Surah, ListeningProgress, ListeningGoal, UserProfile, Reflection
 
 # SIGNUP: creates a new account. Only accepts POST because the user is SENDING us data.
 @api_view(['POST'])
@@ -277,3 +277,99 @@ def update_profile(request):
         'avatar_style': profile.avatar_icon,
         'avatar_color': profile.avatar_color,
     }, status=status.HTTP_200_OK)
+
+# CREATE REFLECTION: saves a new journal entry for a surah.
+@api_view(['POST'])
+def create_reflection(request):
+    auth = TokenAuthentication()
+    try:
+        user, token = auth.authenticate(request)
+    except:
+        return Response(
+            {'error': 'You must be logged in.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    surah_number = request.data.get('surah_number')
+    text = request.data.get('text')
+
+    if not surah_number or not text:
+        return Response(
+            {'error': 'Surah number and text are required.'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    try:
+        surah = Surah.objects.get(number=surah_number)
+    except Surah.DoesNotExist:
+        return Response(
+            {'error': 'Surah not found.'},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    reflection = Reflection.objects.create(user=user, surah=surah, text=text)
+
+    return Response({
+        'id': reflection.id,
+        'surah_number': surah.number,
+        'surah_name': surah.name_english,
+        'surah_arabic': surah.name_arabic,
+        'text': reflection.text,
+        'created_at': reflection.created_at,
+    }, status=status.HTTP_201_CREATED)
+
+
+# LIST REFLECTIONS: returns all journal entries for the logged-in user.
+@api_view(['GET'])
+def list_reflections(request):
+    auth = TokenAuthentication()
+    try:
+        user, token = auth.authenticate(request)
+    except:
+        return Response(
+            {'error': 'You must be logged in.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    reflections = Reflection.objects.filter(user=user)
+
+    data = []
+    for r in reflections:
+        data.append({
+            'id': r.id,
+            'surah_number': r.surah.number,
+            'surah_name': r.surah.name_english,
+            'surah_arabic': r.surah.name_arabic,
+            'text': r.text,
+            'created_at': r.created_at,
+        })
+
+    return Response(data, status=status.HTTP_200_OK)
+
+
+# DELETE REFLECTION: lets the user delete one of their own reflections.
+@api_view(['DELETE'])
+def delete_reflection(request, reflection_id):
+    auth = TokenAuthentication()
+    try:
+        user, token = auth.authenticate(request)
+    except:
+        return Response(
+            {'error': 'You must be logged in.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    try:
+        reflection = Reflection.objects.get(id=reflection_id, user=user)
+    except Reflection.DoesNotExist:
+        return Response(
+            {'error': 'Reflection not found.'},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    reflection.delete()
+
+    return Response(
+        {'message': 'Reflection deleted.'},
+        status=status.HTTP_200_OK
+    )

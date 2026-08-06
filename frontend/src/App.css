@@ -695,3 +695,273 @@ body {
   font-size: 12px;
   color: #7A8B8E;
 }
+
+/* Journal */
+.journal {
+  margin-top: 8px;
+}
+
+.journal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.journal-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #1A3C40;
+  margin-bottom: 4px;
+}
+
+.journal-subtitle {
+  font-size: 13px;
+  color: #7A8B8E;
+}
+
+.btn-new-reflection {
+  padding: 10px 20px;
+  background: #1A3C40;
+  color: #F0E6D3;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.btn-new-reflection:hover {
+  background: #245056;
+}
+
+/* Write card */
+.journal-write-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+  border: 1px solid #E8E0D4;
+  margin-bottom: 20px;
+}
+
+.journal-write-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.journal-write-header h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1A3C40;
+}
+
+.journal-write-icon {
+  font-size: 20px;
+}
+
+.journal-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #E8E0D4;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #FAF7F2;
+  color: #2C3E50;
+  appearance: none;
+}
+
+.journal-select:focus {
+  outline: none;
+  border-color: #1A3C40;
+}
+
+.journal-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #E8E0D4;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #FAF7F2;
+  color: #2C3E50;
+  font-family: 'Georgia', serif;
+  line-height: 1.8;
+  resize: vertical;
+}
+
+.journal-textarea:focus {
+  outline: none;
+  border-color: #1A3C40;
+}
+
+.journal-textarea::placeholder {
+  color: #B8C0C2;
+  font-style: italic;
+}
+
+.journal-write-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.journal-write-actions .btn-primary {
+  width: auto;
+  padding: 10px 24px;
+}
+
+.journal-write-actions .btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Empty state */
+.journal-empty {
+  text-align: center;
+  padding: 48px 24px;
+  background: white;
+  border-radius: 14px;
+  border: 1px dashed #E8E0D4;
+}
+
+.journal-empty-icon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.journal-empty p {
+  color: #2C3E50;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.journal-empty-hint {
+  color: #7A8B8E !important;
+  font-size: 13px !important;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+/* Journal entries */
+.journal-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.journal-entry {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 24px;
+  border: 1px solid #E8E0D4;
+  border-left: 3px solid #D4A957;
+}
+
+.journal-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.journal-entry-surah {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1A3C40;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.journal-entry-date {
+  font-size: 12px;
+  color: #7A8B8E;
+}
+
+.journal-delete-btn {
+  background: transparent;
+  border: none;
+  color: #B8C0C2;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.journal-delete-btn:hover {
+  color: #C0392B;
+}
+
+.journal-entry-text {
+  font-size: 15px;
+  color: #2C3E50;
+  line-height: 1.8;
+  font-family: 'Georgia', serif;
+  white-space: pre-wrap;
+}
+
+/* Reflection prompt */
+.reflect-prompt {
+  background: white;
+  border-radius: 14px;
+  padding: 20px 24px;
+  border: 1px solid #D4A957;
+  margin-bottom: 16px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reflect-prompt-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.reflect-prompt-icon {
+  font-size: 24px;
+}
+
+.reflect-prompt-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1A3C40;
+}
+
+.reflect-prompt-subtitle {
+  font-size: 13px;
+  color: #7A8B8E;
+  margin-top: 2px;
+}
+
+.reflect-prompt-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.btn-mute {
+  background: transparent;
+  border: none;
+  color: #B8C0C2;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 8px;
+  margin-left: auto;
+}
+
+.btn-mute:hover {
+  color: #7A8B8E;
+}
