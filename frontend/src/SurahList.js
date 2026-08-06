@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Goal from './Goal';
+import ProgressVisual from './ProgressVisual';
 
 function SurahList(props) {
   const [surahs, setSurahs] = useState([]);
@@ -120,6 +121,7 @@ function SurahList(props) {
   return (
     <div>
       <Goal token={props.token} listenedCount={listenedCount} />
+      <ProgressVisual surahs={surahs} listened={listened} />
 
       {reflectPrompt && (
         <div className="reflect-prompt">
@@ -159,13 +161,6 @@ function SurahList(props) {
           </div>
         </div>
       )}
-
-      <div className="progress-container">
-        <div className="progress-bar">
-          <div className="progress-fill" style={{ width: progressPercent + '%' }}></div>
-        </div>
-        <p className="progress-text">{progressPercent}% complete</p>
-      </div>
 
       <div className="filter-bar">
         <button
