@@ -1,5 +1,6 @@
-// Profile.js - Profile dropdown with Islamic-themed avatar picker.
-// Users choose an icon and background color for their avatar.
+// Profile.js — Islamic-themed avatar picker with editable display name.
+// Users can change their avatar icon/color and display name, then log
+// out from the dropdown menu.
 
 import { useState, useEffect, useRef } from 'react';
 
@@ -16,12 +17,12 @@ const AVATAR_ICONS = [
 ];
 
 const AVATAR_COLORS = [
-  { id: '#1A3C40', label: 'Teal' },
+  { id: '#1F1A16', label: 'Ink' },
+  { id: '#9C3D4A', label: 'Rose' },
+  { id: '#A67B3A', label: 'Brass' },
   { id: '#2C5F2D', label: 'Green' },
   { id: '#4A3728', label: 'Brown' },
   { id: '#1B2A4A', label: 'Navy' },
-  { id: '#6B3A5D', label: 'Plum' },
-  { id: '#8B6914', label: 'Gold' },
 ];
 
 function Profile(props) {
@@ -29,9 +30,8 @@ function Profile(props) {
   const [editing, setEditing] = useState(false);
   const [pickingAvatar, setPickingAvatar] = useState(false);
   const [displayName, setDisplayName] = useState('');
-  const [bio, setBio] = useState('');
   const [avatarIcon, setAvatarIcon] = useState('crescent');
-  const [avatarColor, setAvatarColor] = useState('#1A3C40');
+  const [avatarColor, setAvatarColor] = useState('#1F1A16');
   const [saved, setSaved] = useState(false);
   const menuRef = useRef(null);
 
@@ -43,7 +43,6 @@ function Profile(props) {
       const data = await response.json();
       if (response.ok) {
         setDisplayName(data.display_name || '');
-        setBio(data.bio || '');
         if (data.avatar_style) setAvatarIcon(data.avatar_style);
         if (data.avatar_color) setAvatarColor(data.avatar_color);
       }
@@ -72,7 +71,6 @@ function Profile(props) {
       },
       body: JSON.stringify({
         display_name: displayName,
-        bio: bio,
         avatar_style: avatarIcon,
         avatar_color: avatarColor,
       }),
@@ -87,6 +85,7 @@ function Profile(props) {
   };
 
   const currentEmoji = AVATAR_ICONS.find((i) => i.id === avatarIcon)?.emoji || '🌙';
+  const nameShown = displayName || props.username;
 
   return (
     <div className="profile-wrapper" ref={menuRef}>
@@ -94,6 +93,7 @@ function Profile(props) {
         className="profile-avatar-btn"
         onClick={() => setOpen(!open)}
         style={{ backgroundColor: avatarColor }}
+        aria-label="Open profile menu"
       >
         <span className="profile-avatar-emoji">{currentEmoji}</span>
       </button>
@@ -108,14 +108,10 @@ function Profile(props) {
               <span>{currentEmoji}</span>
             </div>
             <div>
-              <p className="profile-name">{displayName || props.username}</p>
+              <p className="profile-name">{nameShown}</p>
               <p className="profile-username">@{props.username}</p>
             </div>
           </div>
-
-          {bio && !editing && !pickingAvatar && (
-            <p className="profile-bio">{bio}</p>
-          )}
 
           {saved && <p className="profile-saved">✓ Saved</p>}
 
@@ -134,7 +130,7 @@ function Profile(props) {
                   </button>
                 ))}
               </div>
-              <p className="avatar-picker-title" style={{ marginTop: '12px' }}>Choose your color</p>
+              <p className="avatar-picker-title" style={{ marginTop: '14px' }}>Choose your color</p>
               <div className="avatar-color-grid">
                 {AVATAR_COLORS.map((color) => (
                   <button
@@ -173,15 +169,6 @@ function Profile(props) {
                   placeholder="Your name"
                 />
               </div>
-              <div className="form-group">
-                <label>Bio</label>
-                <textarea
-                  value={bio}
-                  onChange={(e) => setBio(e.target.value)}
-                  placeholder="Tell us about yourself..."
-                  rows={3}
-                />
-              </div>
               <div className="profile-edit-buttons">
                 <button className="btn-primary" onClick={handleSave}>Save</button>
                 <button className="btn-small" onClick={() => setEditing(false)}>Cancel</button>
@@ -193,7 +180,7 @@ function Profile(props) {
                 Change Avatar
               </button>
               <button className="profile-menu-item" onClick={() => setEditing(true)}>
-                Edit Profile
+                Edit Name
               </button>
               <button className="profile-menu-item logout" onClick={props.onLogout}>
                 Log Out

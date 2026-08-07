@@ -1,18 +1,35 @@
-// App.js — The main entry point. Shows auth forms or the main app.
-// Logged-in users can switch between the tracker and the journal.
+// App.js — The main entry point. Manages auth state, navigation between
+// tracker and journal, and the About/welcome modal.
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Signup from './Signup';
 import Login from './Login';
 import SurahList from './SurahList';
 import Journal from './Journal';
 import Profile from './Profile';
+import AboutModal from './AboutModal';
+import ScrollToTop from './ScrollToTop';
 
 function App() {
   const [token, setToken] = useState(null);
   const [username, setUsername] = useState('');
   const [page, setPage] = useState('tracker');
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [aboutIsFirstTime, setAboutIsFirstTime] = useState(false);
+
+  // On login, check whether this user has ever seen the welcome modal
+  useEffect(() => {
+    if (token && username) {
+      const seenKey = `quran-companion-welcomed-${username}`;
+      const hasSeenWelcome = window.localStorage.getItem(seenKey);
+      if (!hasSeenWelcome) {
+        setAboutIsFirstTime(true);
+        setAboutOpen(true);
+        window.localStorage.setItem(seenKey, 'true');
+      }
+    }
+  }, [token, username]);
 
   const handleAuth = (newToken, newUsername) => {
     setToken(newToken);
@@ -23,7 +40,15 @@ function App() {
     setToken(null);
     setUsername('');
     setPage('tracker');
+    setAboutOpen(false);
   };
+
+  const openAbout = () => {
+    setAboutIsFirstTime(false);
+    setAboutOpen(true);
+  };
+
+  const closeAbout = () => setAboutOpen(false);
 
   if (token) {
     return (
@@ -43,14 +68,21 @@ function App() {
             >
               Journal
             </button>
+            <button className="nav-tab nav-tab-about" onClick={openAbout}>
+              About
+            </button>
           </div>
           <Profile token={token} username={username} onLogout={handleLogout} />
         </div>
+
         {page === 'tracker' ? (
           <SurahList token={token} />
         ) : (
           <Journal token={token} />
         )}
+
+        {aboutOpen && <AboutModal onClose={closeAbout} firstTime={aboutIsFirstTime} />}
+        <ScrollToTop />
       </div>
     );
   }
@@ -59,7 +91,7 @@ function App() {
     <div className="app">
       <div className="auth-container">
         <h1>Quran Companion</h1>
-        <p className="auth-subtitle">Track your Qur'an listening journey</p>
+        <p className="auth-subtitle">A quiet companion for your Qur'an journey</p>
         <div className="auth-forms">
           <Signup onAuth={handleAuth} />
           <Login onAuth={handleAuth} />

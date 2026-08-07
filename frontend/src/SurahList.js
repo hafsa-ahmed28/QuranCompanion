@@ -1,6 +1,6 @@
-// SurahList.js — The tracker page. Shows a large statement goal card, the
-// progress visualization, filter tabs, search, and the surah list styled
-// to match the illuminated-manuscript aesthetic of the journal.
+// SurahList.js — The tracker page. Statement goal card, progress viz,
+// filter tabs, search, and a self-scrolling surah list section so the
+// long list doesn't hijack the whole page's scroll.
 
 import { useState, useEffect } from 'react';
 import Goal from './Goal';
@@ -120,7 +120,6 @@ function SurahList(props) {
     <div>
       <Goal token={props.token} listenedCount={listenedCount} />
 
-      {/* Reflection prompt — appears after marking listened */}
       {reflectPrompt && (
         <div className="reflect-prompt">
           <div className="reflect-prompt-header">
@@ -163,7 +162,6 @@ function SurahList(props) {
 
       <ProgressVisual surahs={surahs} listened={listened} />
 
-      {/* The list section — headed like a chapter */}
       <div className="surah-list-section">
         <div className="surah-list-header">
           <div>
@@ -206,43 +204,46 @@ function SurahList(props) {
           />
         </div>
 
-        <div className="surah-list">
-          {filteredSurahs.length === 0 ? (
-            <p className="empty-state">Nothing here yet.</p>
-          ) : (
-            filteredSurahs.map((surah) => {
-              const isListened = listened.includes(surah.number);
-              return (
-                <div key={surah.number} className={`surah-card ${isListened ? 'listened' : ''}`}>
-                  <div className="surah-number-badge">
-                    <span>{surah.number}</span>
+        {/* Self-scrolling list container */}
+        <div className="surah-list-scroll">
+          <div className="surah-list">
+            {filteredSurahs.length === 0 ? (
+              <p className="empty-state">Nothing here yet.</p>
+            ) : (
+              filteredSurahs.map((surah) => {
+                const isListened = listened.includes(surah.number);
+                return (
+                  <div key={surah.number} className={`surah-card ${isListened ? 'listened' : ''}`}>
+                    <div className="surah-number-badge">
+                      <span>{surah.number}</span>
+                    </div>
+                    <div className="surah-info">
+                      <h3>
+                        {surah.name_english}
+                        <span className="arabic-name"> {surah.name_arabic}</span>
+                      </h3>
+                      <small>
+                        <em>{surah.english_translation}</em>
+                        <span className="surah-meta-dot"> · </span>
+                        {surah.number_of_ayahs} ayahs
+                        <span className="surah-meta-dot"> · </span>
+                        {surah.revelation_type}
+                      </small>
+                    </div>
+                    <div>
+                      {isListened ? (
+                        <span className="listened-badge" title="You have listened to this surah">✓</span>
+                      ) : (
+                        <button className="btn-listen" onClick={() => handleMarkListened(surah)}>
+                          Mark Listened
+                        </button>
+                      )}
+                    </div>
                   </div>
-                  <div className="surah-info">
-                    <h3>
-                      {surah.name_english}
-                      <span className="arabic-name"> {surah.name_arabic}</span>
-                    </h3>
-                    <small>
-                      <em>{surah.english_translation}</em>
-                      <span className="surah-meta-dot"> · </span>
-                      {surah.number_of_ayahs} ayahs
-                      <span className="surah-meta-dot"> · </span>
-                      {surah.revelation_type}
-                    </small>
-                  </div>
-                  <div>
-                    {isListened ? (
-                      <span className="listened-badge" title="You have listened to this surah">✓</span>
-                    ) : (
-                      <button className="btn-listen" onClick={() => handleMarkListened(surah)}>
-                        Mark Listened
-                      </button>
-                    )}
-                  </div>
-                </div>
-              );
-            })
-          )}
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
     </div>

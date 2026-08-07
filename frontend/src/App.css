@@ -2108,3 +2108,304 @@ h1, h2, h3 {
     font-size: 18px;
   }
 }
+
+/* ================= Scroll behavior + button ================= */
+
+/* Self-scrolling surah list */
+.surah-list-scroll {
+  max-height: 640px;
+  overflow-y: auto;
+  padding-right: 8px;
+  border: 1px solid var(--border-soft);
+  border-radius: 2px;
+  background: var(--parchment-soft);
+}
+
+.surah-list-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.surah-list-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.surah-list-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.surah-list-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--brass);
+}
+
+.surah-list-scroll .surah-list {
+  padding: 4px 12px;
+}
+
+.surah-list-scroll .surah-card:last-child {
+  border-bottom: none;
+}
+
+/* Scroll-to-top button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--parchment);
+  border: 1px solid var(--brass);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(31, 26, 22, 0.2);
+  z-index: 200;
+  transition: all 0.2s;
+  animation: fadeInUp 0.3s ease;
+}
+
+.scroll-to-top:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .scroll-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+  }
+  .surah-list-scroll {
+    max-height: 520px;
+  }
+}
+
+/* Profile hover tooltip */
+.profile-tooltip {
+  position: absolute;
+  top: 54px;
+  right: 0;
+  background: var(--ink);
+  color: var(--parchment);
+  padding: 14px 18px;
+  border-radius: 2px;
+  border: 1px solid var(--brass);
+  box-shadow: 0 6px 24px rgba(31, 26, 22, 0.25);
+  z-index: 90;
+  min-width: 200px;
+  max-width: 280px;
+  animation: tooltipIn 0.15s ease;
+  pointer-events: none;
+}
+
+.profile-tooltip::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: 20px;
+  width: 10px;
+  height: 10px;
+  background: var(--ink);
+  border-top: 1px solid var(--brass);
+  border-left: 1px solid var(--brass);
+  transform: rotate(45deg);
+}
+
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-tooltip-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--parchment);
+}
+
+.profile-tooltip-username {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 12px;
+  color: var(--parchment-warm);
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+.profile-tooltip-bio {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 13px;
+  color: var(--parchment-warm);
+  font-style: italic;
+  line-height: 1.5;
+  padding-top: 8px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(217, 203, 174, 0.2);
+}
+
+/* ================= Modal (About / Welcome) ================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 26, 22, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 20px;
+  animation: overlayIn 0.2s ease;
+  overflow-y: auto;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: var(--parchment-soft);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  max-width: 560px;
+  width: 100%;
+  padding: 44px 48px 40px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalIn 0.25s ease;
+}
+
+.modal-content::before,
+.modal-content::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--brass);
+  opacity: 0.6;
+}
+
+.modal-content::before {
+  top: 10px; left: 10px;
+  border-right: none; border-bottom: none;
+}
+
+.modal-content::after {
+  bottom: 10px; right: 10px;
+  border-left: none; border-top: none;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.modal-close:hover {
+  color: var(--accent);
+}
+
+.modal-eyebrow {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.modal-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 34px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 16px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.modal-lead {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.modal-section {
+  margin-bottom: 20px;
+}
+
+.modal-section-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.modal-section-text {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.modal-verse {
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 8px;
+  border-top: 1px solid var(--border-soft);
+}
+
+/* About tab has a slightly softer look than Tracker/Journal */
+.nav-tab-about {
+  opacity: 0.7;
+}
+
+.nav-tab-about:hover {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .modal-content {
+    padding: 36px 24px 28px;
+  }
+  .modal-title {
+    font-size: 26px;
+  }
+  .nav-tabs {
+    gap: 18px;
+  }
+}
