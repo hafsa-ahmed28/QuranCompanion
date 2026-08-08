@@ -3,6 +3,7 @@
 // piece reads as a page from an old mushaf index rather than a modern progress bar.
 
 import { useState } from 'react';
+import './ProgressVisual.css';
 
 function ProgressVisual(props) {
   const [hovered, setHovered] = useState(null);

@@ -3,13 +3,13 @@
 
 import { useState, useEffect } from 'react';
 import './App.css';
-import Signup from './Signup';
-import Login from './Login';
-import SurahList from './SurahList';
-import Journal from './Journal';
-import Profile from './Profile';
-import AboutModal from './AboutModal';
-import ScrollToTop from './ScrollToTop';
+import Signup from './auth/Signup';
+import Login from './auth/Login';
+import SurahList from './tracker/SurahList';
+import Journal from './journal/Journal';
+import Profile from './profile/Profile';
+import AboutModal from './shared/AboutModal';
+import ScrollToTop from './shared/ScrollToTop';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -91,7 +91,7 @@ function App() {
     <div className="app">
       <div className="auth-container">
         <h1>Quran Companion</h1>
-        <p className="auth-subtitle">A quiet companion for your Qur'an journey</p>
+        <p className="auth-subtitle">A quiet companion for your Qur'an listening journey</p>
         <div className="auth-forms">
           <Signup onAuth={handleAuth} />
           <Login onAuth={handleAuth} />

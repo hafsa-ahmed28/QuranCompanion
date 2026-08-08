@@ -1,0 +1,139 @@
+/* AboutModal.css — Modal overlay, content card with ornate corners, and typography. */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 26, 22, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 20px;
+  animation: overlayIn 0.2s ease;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background: var(--parchment-soft);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  max-width: 560px;
+  width: 100%;
+  padding: 44px 48px 40px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalIn 0.25s ease;
+}
+
+.modal-content::before,
+.modal-content::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--brass);
+  opacity: 0.6;
+}
+
+.modal-content::before {
+  top: 10px;
+  left: 10px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.modal-content::after {
+  bottom: 10px;
+  right: 10px;
+  border-left: none;
+  border-top: none;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.modal-close:hover {
+  color: var(--accent);
+}
+
+.modal-eyebrow {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--ink-muted);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 16px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.modal-lead {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.modal-section {
+  margin-bottom: 20px;
+}
+
+.modal-section-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.modal-section-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.modal-verse {
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 8px;
+  border-top: 1px solid var(--border-soft);
+}
+
+@media (max-width: 640px) {
+  .modal-content {
+    padding: 36px 24px 28px;
+  }
+
+  .modal-title {
+    font-size: 26px;
+  }
+}

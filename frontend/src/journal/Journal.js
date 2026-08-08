@@ -3,6 +3,7 @@
 // reflections on the same day appear under one date label.
 
 import { useState, useEffect } from 'react';
+import './Journal.css';
 
 function Journal(props) {
   const [reflections, setReflections] = useState([]);

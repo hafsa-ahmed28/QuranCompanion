@@ -1,0 +1,461 @@
+/* Journal.css — The bound-book journal: header, book spread for writing,
+   book viewer for reading past entries, contents strip, and empty state. */
+
+.journal {
+  margin-top: 8px;
+}
+
+.journal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.journal-title {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-style: italic;
+  color: var(--ink);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.journal-subtitle {
+  font-size: 14px;
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-top: 8px;
+}
+
+.btn-new-reflection {
+  padding: 10px 22px;
+  background: var(--ink);
+  color: var(--parchment);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.btn-new-reflection:hover {
+  background: var(--accent);
+}
+
+/* Book spread — used for both writing and single-page reading */
+.book-spread {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--parchment-soft);
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+  position: relative;
+  min-height: 460px;
+}
+
+.book-spread::before,
+.book-spread::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--brass);
+  opacity: 0.5;
+}
+
+.book-spread::before {
+  top: 8px;
+  left: 8px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.book-spread::after {
+  bottom: 8px;
+  right: 8px;
+  border-left: none;
+  border-top: none;
+}
+
+.book-spread.single {
+  grid-template-columns: 1fr;
+  min-height: 520px;
+}
+
+.book-spread-page {
+  padding: 40px 36px;
+  position: relative;
+}
+
+.book-spread-page.left {
+  border-right: 1px solid var(--border);
+  background:
+    linear-gradient(to right, transparent 0%, rgba(217, 203, 174, 0.08) 100%),
+    var(--parchment-soft);
+}
+
+.book-spread-page.right {
+  background:
+    linear-gradient(to left, transparent 0%, rgba(217, 203, 174, 0.08) 100%),
+    var(--parchment-soft);
+  display: flex;
+  flex-direction: column;
+}
+
+.book-spread-page.right.full {
+  padding: 44px 56px;
+}
+
+.book-page-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-style: italic;
+  color: var(--ink);
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.book-page-title.small {
+  font-size: 26px;
+  margin-bottom: 0;
+}
+
+.book-instructions {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink-muted);
+  line-height: 1.75;
+  margin-top: 24px;
+}
+
+/* The lined writing surface */
+.book-textarea {
+  width: 100%;
+  flex: 1;
+  min-height: 300px;
+  padding: 8px 4px;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 2;
+  resize: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 35px,
+    rgba(166, 123, 58, 0.18) 35px,
+    rgba(166, 123, 58, 0.18) 36px
+  );
+}
+
+.book-textarea:focus {
+  outline: none;
+}
+
+.book-textarea::placeholder {
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.journal-select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  background: var(--parchment);
+  color: var(--ink);
+  appearance: none;
+}
+
+.journal-select:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+
+.journal-write-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.journal-write-actions .btn-primary {
+  width: auto;
+  padding: 11px 32px;
+  margin-top: 0;
+}
+
+/* Book viewer — reading past entries */
+.book-viewer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.book-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.book-page-body {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 2;
+  color: var(--ink);
+  white-space: pre-wrap;
+  padding: 8px 4px 24px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 35px,
+    rgba(166, 123, 58, 0.14) 35px,
+    rgba(166, 123, 58, 0.14) 36px
+  );
+}
+
+.book-page-number {
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: 24px;
+  letter-spacing: 0.08em;
+}
+
+.journal-entry-date {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+
+.journal-delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--ink-muted);
+  font-family: var(--font-display);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0 6px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.journal-delete-btn:hover {
+  color: var(--accent);
+}
+
+/* Contents strip — grouped by date */
+.book-contents {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  background: var(--parchment-soft);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.book-contents-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  flex-shrink: 0;
+}
+
+.book-contents-list {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.book-contents-list::-webkit-scrollbar {
+  height: 4px;
+}
+
+.book-contents-list::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.book-contents-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border-right: 1px solid var(--border-soft);
+}
+
+.book-contents-group:last-child {
+  border-right: none;
+}
+
+.book-contents-date {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.book-contents-page-dots {
+  display: flex;
+  gap: 3px;
+}
+
+.book-contents-dot {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.book-contents-dot:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.book-contents-dot.active {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--parchment);
+}
+
+/* Page turn controls */
+.book-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+}
+
+.book-nav-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  padding: 8px 18px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.15s;
+}
+
+.book-nav-btn:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--parchment);
+  border-color: var(--ink);
+}
+
+.book-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.book-nav-position {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink-muted);
+  font-size: 15px;
+}
+
+/* Empty state */
+.journal-empty {
+  text-align: center;
+  padding: 72px 32px;
+  background: var(--parchment-soft);
+  border: 1px dashed var(--border);
+  position: relative;
+}
+
+.journal-empty-icon {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-style: italic;
+  color: var(--brass);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.journal-empty p:not(.journal-empty-hint) {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.journal-empty-hint {
+  color: var(--ink-muted) !important;
+  font-size: 14px !important;
+  max-width: 400px;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+@media (max-width: 720px) {
+  .book-spread {
+    grid-template-columns: 1fr;
+  }
+
+  .book-spread-page.left {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .book-spread-page,
+  .book-spread-page.right.full {
+    padding: 28px 22px;
+  }
+
+  .book-contents {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .book-nav-btn {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .journal-title {
+    font-size: 26px;
+  }
+}

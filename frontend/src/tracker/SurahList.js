@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react';
 import Goal from './Goal';
 import ProgressVisual from './ProgressVisual';
+import './SurahList.css';
 
 function SurahList(props) {
   const [surahs, setSurahs] = useState([]);

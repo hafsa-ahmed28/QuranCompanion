@@ -3,6 +3,8 @@
 // navbar, and (2) auto-shown on a user's first visit, dismissing forever
 // once they close it (stored locally so it never nags again).
 
+import './AboutModal.css';
+
 function AboutModal(props) {
   return (
     <div className="modal-overlay" onClick={props.onClose}>

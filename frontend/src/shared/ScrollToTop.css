@@ -1,0 +1,37 @@
+/* ScrollToTop.css — The floating back-to-top button. */
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--parchment);
+  border: 1px solid var(--brass);
+  font-family: var(--font-display);
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(31, 26, 22, 0.2);
+  z-index: 200;
+  transition: all 0.2s;
+  animation: fadeInUp 0.3s ease;
+}
+
+.scroll-to-top:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .scroll-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+  }
+}

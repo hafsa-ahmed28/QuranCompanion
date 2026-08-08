@@ -1,0 +1,175 @@
+/* ProgressVisual.css — The manuscript-style progress grid and verse plate. */
+
+.progress-visual {
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.progress-visual-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.progress-visual-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-style: italic;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.progress-visual-count-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-family: var(--font-display);
+}
+
+.progress-visual-count-big {
+  font-size: 44px;
+  color: var(--accent);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.progress-visual-count-slash {
+  font-size: 24px;
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+.progress-visual-count-total {
+  font-size: 18px;
+  color: var(--ink-muted);
+}
+
+/* The 114-cell grid */
+.surah-marks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+  gap: 4px;
+  margin: 20px 0 8px;
+}
+
+.surah-mark {
+  aspect-ratio: 1 / 1;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: var(--ink-muted);
+  padding: 0;
+}
+
+.surah-mark:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  transform: scale(1.15);
+  z-index: 1;
+}
+
+.surah-mark.completed {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--parchment);
+  font-weight: 500;
+}
+
+.surah-mark.completed:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.progress-hover-line {
+  min-height: 26px;
+  padding: 10px 0 6px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--ink);
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 14px;
+}
+
+.progress-hover-line em {
+  font-style: italic;
+}
+
+.progress-check {
+  color: var(--brass);
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+.progress-hint {
+  color: var(--ink-muted);
+  font-style: italic;
+  font-size: 13px;
+}
+
+.progress-visual-footer {
+  margin-top: 8px;
+}
+
+.progress-visual-bar {
+  height: 3px;
+  background: var(--border-soft);
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.progress-visual-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.5s ease;
+}
+
+.progress-visual-percent {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 10px;
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+/* Verse plate — quoted ayah at the bottom */
+.verse-plate {
+  margin-top: 24px;
+  padding: 22px 24px 18px;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+  text-align: center;
+}
+
+.heart-verse {
+  font-family: var(--font-arabic);
+  font-size: 20px;
+  color: var(--ink);
+  line-height: 2;
+  direction: rtl;
+}
+
+.verse-plate .heart-verse {
+  margin-top: 0;
+}
+
+.heart-verse-translation {
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.heart-verse-ref {
+  font-style: normal;
+  color: var(--ink-muted);
+}

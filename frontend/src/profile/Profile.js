@@ -3,17 +3,18 @@
 // out from the dropdown menu.
 
 import { useState, useEffect, useRef } from 'react';
+import './Profile.css';
 
 const AVATAR_ICONS = [
   { id: 'crescent', emoji: '🌙', label: 'Crescent' },
+  { id: 'starcrescent', emoji: '☪️', label: 'Star & Crescent' },
   { id: 'mosque', emoji: '🕌', label: 'Mosque' },
   { id: 'kaaba', emoji: '🕋', label: 'Kaaba' },
   { id: 'book', emoji: '📖', label: 'Qur\'an' },
   { id: 'dua', emoji: '🤲', label: 'Du\'a' },
   { id: 'beads', emoji: '📿', label: 'Tasbih' },
-  { id: 'star', emoji: '⭐', label: 'Star' },
-  { id: 'lantern', emoji: '🏮', label: 'Lantern' },
-  { id: 'garden', emoji: '🌿', label: 'Jannah' },
+  { id: 'shahada', emoji: '☝️', label: 'Tawhid' },
+  { id: 'hijab', emoji: '🧕', label: 'Hijab' },
 ];
 
 const AVATAR_COLORS = [

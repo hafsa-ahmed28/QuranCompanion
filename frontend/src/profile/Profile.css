@@ -1,0 +1,230 @@
+/* Profile.css — Avatar button, dropdown menu, edit form, and avatar picker. */
+
+.profile-wrapper {
+  position: relative;
+}
+
+.profile-avatar-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--brass);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.profile-avatar-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 4px rgba(166, 123, 58, 0.15);
+}
+
+.profile-avatar-emoji {
+  font-size: 20px;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 54px;
+  right: 0;
+  width: 300px;
+  background: var(--parchment-soft);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  box-shadow: 0 10px 40px rgba(31, 26, 22, 0.15);
+  padding: 20px;
+  z-index: 100;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.profile-avatar-large-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+  border: 2px solid var(--brass);
+}
+
+.profile-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.profile-username {
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.profile-saved {
+  font-size: 13px;
+  color: var(--brass);
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.profile-edit {
+  padding-top: 8px;
+}
+
+.profile-edit-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.profile-edit-buttons .btn-primary {
+  flex: 1;
+  margin-top: 0;
+  padding: 9px;
+}
+
+.profile-menu {
+  padding-top: 4px;
+}
+
+.profile-menu-item {
+  width: 100%;
+  padding: 11px 14px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+
+.profile-menu-item:hover {
+  background: var(--parchment-warm);
+}
+
+.profile-menu-item.logout {
+  color: var(--accent);
+}
+
+.profile-menu-item.logout:hover {
+  background: rgba(156, 61, 74, 0.08);
+}
+
+/* Avatar picker */
+.avatar-picker {
+  padding-top: 4px;
+}
+
+.avatar-picker-title {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.avatar-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.avatar-icon-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--parchment);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.avatar-icon-option:hover {
+  border-color: var(--ink);
+}
+
+.avatar-icon-option.selected {
+  border-color: var(--brass);
+  background: var(--parchment-warm);
+}
+
+.avatar-icon-emoji {
+  font-size: 24px;
+}
+
+.avatar-icon-option small {
+  font-size: 10px;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.avatar-color-grid {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.avatar-color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.avatar-color-option:hover {
+  transform: scale(1.1);
+}
+
+.avatar-color-option.selected {
+  border-color: var(--brass);
+  box-shadow: 0 0 0 2px var(--parchment-soft), 0 0 0 4px var(--brass);
+}
+
+.avatar-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.avatar-preview-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.avatar-preview small {
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-style: italic;
+}

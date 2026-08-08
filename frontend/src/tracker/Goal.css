@@ -1,0 +1,137 @@
+/* Goal.css — The tracker's headline statement card. */
+
+.goal-section {
+  padding: 32px 36px;
+  margin-bottom: 24px;
+}
+
+.goal-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.goal-stat-number {
+  font-family: var(--font-display);
+  font-size: 72px;
+  color: var(--accent);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.goal-stat-slash {
+  font-family: var(--font-display);
+  font-size: 36px;
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+.goal-stat-total {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--ink-muted);
+}
+
+.goal-stat-label {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-soft);
+  margin-left: 12px;
+}
+
+.goal-details {
+  padding-top: 20px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.goal-target {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.goal-target em {
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.goal-date {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.goal-days {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.goal-days-number {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--brass);
+}
+
+.goal-days em {
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-left: 4px;
+}
+
+.goal-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.goal-form label {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.goal-form input {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  background: var(--parchment);
+  color: var(--ink);
+}
+
+.goal-form button {
+  padding: 9px 20px;
+  background: var(--ink);
+  color: var(--parchment);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.goal-form button:hover {
+  background: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .goal-section {
+    padding: 24px 22px;
+  }
+
+  .goal-stat-number {
+    font-size: 56px;
+  }
+}

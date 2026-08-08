@@ -2,6 +2,7 @@
 // down a bit, letting them jump back to the top of the page instantly.
 
 import { useState, useEffect } from 'react';
+import './ScrollToTop.css';
 
 function ScrollToTop() {
   const [visible, setVisible] = useState(false);

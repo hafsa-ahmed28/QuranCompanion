@@ -3,6 +3,7 @@
 // form to set or change the goal.
 
 import { useState, useEffect } from 'react';
+import './Goal.css';
 
 function Goal(props) {
   const [targetDate, setTargetDate] = useState('');
