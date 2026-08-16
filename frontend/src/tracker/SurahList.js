@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Goal from './Goal';
 import ProgressVisual from './ProgressVisual';
 import './SurahList.css';
+import API_URL from '../config';
 
 function SurahList(props) {
   const [surahs, setSurahs] = useState([]);
@@ -19,7 +20,7 @@ function SurahList(props) {
   const [mutePrompts, setMutePrompts] = useState(false);
 
   const fetchProgress = async () => {
-    const response = await fetch('http://127.0.0.1:8000/api/listening-progress/', {
+    const response = await fetch(API_URL + '/api/listening-progress/', {
       headers: { 'Authorization': 'Token ' + props.token },
     });
     const data = await response.json();
@@ -30,7 +31,7 @@ function SurahList(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const surahResponse = await fetch('http://127.0.0.1:8000/api/surahs/', {
+      const surahResponse = await fetch(API_URL + '/api/surahs/', {
         headers: { 'Authorization': 'Token ' + props.token },
       });
       const surahData = await surahResponse.json();
@@ -46,7 +47,7 @@ function SurahList(props) {
   }, [props.token]);
 
   const handleMarkListened = async (surah) => {
-    const response = await fetch('http://127.0.0.1:8000/api/mark-listened/', {
+    const response = await fetch(API_URL + '/api/mark-listened/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ function SurahList(props) {
     if (!reflectText.trim() || !reflectPrompt) return;
     setSaving(true);
 
-    const response = await fetch('http://127.0.0.1:8000/api/reflections/create/', {
+    const response = await fetch(API_URL + '/api/reflections/create/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

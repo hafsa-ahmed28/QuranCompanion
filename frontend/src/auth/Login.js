@@ -1,6 +1,7 @@
 // Login.js - The login form component.
 
 import { useState } from 'react';
+import API_URL from '../config';
 
 function Login(props) {
   const [username, setUsername] = useState('');
@@ -10,7 +11,7 @@ function Login(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch('http://127.0.0.1:8000/api/login/', {
+    const response = await fetch(API_URL + '/api/login/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),

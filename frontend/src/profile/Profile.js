@@ -4,6 +4,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import './Profile.css';
+import API_URL from '../config';
 
 const AVATAR_ICONS = [
   { id: 'crescent', emoji: '🌙', label: 'Crescent' },
@@ -38,7 +39,7 @@ function Profile(props) {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const response = await fetch('http://127.0.0.1:8000/api/profile/', {
+      const response = await fetch(API_URL + '/api/profile/', {
         headers: { 'Authorization': 'Token ' + props.token },
       });
       const data = await response.json();
@@ -64,7 +65,7 @@ function Profile(props) {
   }, []);
 
   const handleSave = async () => {
-    const response = await fetch('http://127.0.0.1:8000/api/profile/update/', {
+    const response = await fetch(API_URL + '/api/profile/update/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

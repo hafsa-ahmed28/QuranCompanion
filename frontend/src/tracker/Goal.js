@@ -4,6 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import './Goal.css';
+import API_URL from '../config';
 
 function Goal(props) {
   const [targetDate, setTargetDate] = useState('');
@@ -11,7 +12,7 @@ function Goal(props) {
   const [savedDate, setSavedDate] = useState(null);
 
   const fetchGoal = async () => {
-    const response = await fetch('http://127.0.0.1:8000/api/get-goal/', {
+    const response = await fetch(API_URL + '/api/get-goal/', {
       headers: { 'Authorization': 'Token ' + props.token },
     });
     const data = await response.json();
@@ -28,7 +29,7 @@ function Goal(props) {
   const handleSetGoal = async () => {
     if (!targetDate) return;
 
-    const response = await fetch('http://127.0.0.1:8000/api/set-goal/', {
+    const response = await fetch(API_URL + '/api/set-goal/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

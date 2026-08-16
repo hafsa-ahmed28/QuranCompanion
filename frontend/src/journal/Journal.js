@@ -4,6 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import './Journal.css';
+import API_URL from '../config';
 
 function Journal(props) {
   const [reflections, setReflections] = useState([]);
@@ -17,13 +18,13 @@ function Journal(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const refRes = await fetch('http://127.0.0.1:8000/api/reflections/', {
+      const refRes = await fetch(API_URL + '/api/reflections/', {
         headers: { 'Authorization': 'Token ' + props.token },
       });
       const refData = await refRes.json();
       if (refRes.ok) setReflections(refData);
 
-      const surahRes = await fetch('http://127.0.0.1:8000/api/surahs/', {
+      const surahRes = await fetch(API_URL + '/api/surahs/', {
         headers: { 'Authorization': 'Token ' + props.token },
       });
       const surahData = await surahRes.json();
@@ -38,7 +39,7 @@ function Journal(props) {
     if (!selectedSurah || !text.trim()) return;
     setSaving(true);
 
-    const response = await fetch('http://127.0.0.1:8000/api/reflections/create/', {
+    const response = await fetch(API_URL + '/api/reflections/create/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

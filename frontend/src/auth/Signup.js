@@ -1,6 +1,7 @@
 // Signup.js - The signup form component.
 
 import { useState } from 'react';
+import API_URL from '../config';
 
 function Signup(props) {
   const [username, setUsername] = useState('');
@@ -10,7 +11,7 @@ function Signup(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch('http://127.0.0.1:8000/api/signup/', {
+    const response = await fetch(API_URL + '/api/signup/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
