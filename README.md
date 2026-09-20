@@ -36,7 +36,7 @@ Quran Companion is a full-stack web app that combines a progress tracker with a 
 
 ## Why I Built This
 
-Most Qur'an apps focus only on tracking — how many surahs memorized, how many pages read. They miss the *reflection* side: actually thinking about what you read or heard. As a Software Engineering student specializing in UX, I wanted to build something that does both: real tracking, plus a simple, private space to write down what stuck with you.
+Most Qur'an apps focus only on tracking: how many surahs memorized, how many pages read. They miss the *reflection* side: actually thinking about what you read or heard. As a Software Engineering student specializing in UX, I wanted to build something that does both: real tracking, plus a simple, private space to write down what stuck with you.
 
 The design was also a deliberate choice. Most Islamic apps use bright greens and generic modern styling. I wanted this one to feel more like an old book — warm, calm, personal — something you keep alongside the Qur'an rather than a typical productivity app.
 
