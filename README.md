@@ -13,7 +13,7 @@ Quran Companion is a full-stack web app that combines a progress tracker with a 
 ## Screenshots
 
 ![Auth page](screenshots/1-auth.png)
-*The login and signup page — the warm, book-inspired design sets the tone from the first screen.*
+*The login and signup page: the warm, book-inspired design sets the tone from the first screen.*
 
 ![Tracker page](screenshots/2-tracker.png)
 *The tracker: a goal card, a visual grid of all 114 surahs that fills in as you listen, and the full surah list with filters and search.*
